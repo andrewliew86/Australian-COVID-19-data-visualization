@@ -3,9 +3,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import seaborn as sns
-from matplotlib.dates import DateFormatter
 
 
 # The COVID-19 data are contained in three different csv files (confirmed, deaths and recoveries)
@@ -17,7 +15,7 @@ dataset = {'covid19_confirmed.csv': 'Confirmed', 'covid19_deaths.csv': 'Deaths',
 df_list = []
 for file, col_name in dataset.items():
     df = pd.read_csv(file)
-    df = df.loc[df['Country/Region'] == 'Australia']  #Get only australian data!
+    df = df.loc[df['Country/Region'] == 'Australia']  # Get only australian data!
     melt = df.melt(id_vars=['Province/State', 'Country/Region', 'Lat', 'Long'], var_name='date', value_name=col_name)  #Melt is used to change the individual date columns into a single date column for ease of plotting
     df_list.append(melt)
 
@@ -45,13 +43,14 @@ d0 = date(2020, 1, 22)
 d1 = date(2020, 4, 15)
 delta = d1 - d0
 print('Number of days in our dataset: {}'. format(delta.days+1))
-# We know that the dates in our dateset are between 2020-01-22 to 2020-04-15, and according to this formula, there are 85 days between our dates
-# There are 8 states (categories) in Australia so we expect a complete dataset ( with no missing dates or data) to have 85*8 which is equal to 680. Exactly the number of rows that we get in our dataset (according to the df.info method)
+# We know that the dates in our dateset are between 2020-01-22 to 2020-04-15, and according to this formula,
+# there are 85 days between our dates. There are 8 states (categories) in Australia so we expect a complete dataset
+# (with no missing dates or data) to have 85*8 which is equal to 680. Exactly the number of rows that we get
+# in our dataset (according to the df.info method)
 
 
 # Not much happens before the 26 Jan so I am going to slice the data to be after the 26 Jan.
 combined_dataset = combined_dataset.loc['2020-01-26':]
-
 
 fig, ax = plt.subplots(3, 1, sharex='all', figsize=(15, 8))
 sns.lineplot(x=combined_dataset.index, y='Confirmed', data=combined_dataset, hue='Province/State', ax=ax[0])
@@ -61,11 +60,23 @@ ax[1].get_legend().remove()
 ax[2].get_legend().remove()
 plt.xticks(rotation=45)
 plt.show()
+# You can see NSW is the worst affected state
 
+# Here is a comparrison of the data for the two biggest states... NSW and Victoria
+# First, make two new dataframes then do a plot!
+combined_dataset_nsw = combined_dataset.loc[combined_dataset['Province/State'].isin(['New South Wales'])]
+combined_dataset_vic = combined_dataset.loc[combined_dataset['Province/State'].isin(['Victoria'])]
 
-# Further customization will be done when needed
+# Then plot the confirmed cases, number of deaths and cases recovered in the same plot for NSW and victoria.
+fig, ax = plt.subplots(2, 1, sharex='all', figsize=(15, 8))
+combined_dataset_nsw.plot(y=['Confirmed', 'Deaths', 'Recovered'], color=['b', 'r', 'g'],
+                          kind='line', title='NSW data', ax=ax[0])
+combined_dataset_vic.plot(y=['Confirmed', 'Deaths', 'Recovered'], color=['b', 'r', 'g'],
+                          kind='line', title='Victoria data', ax=ax[1])
+ax[0].set_ylabel('Number of patients')
+ax[1].set_ylabel('Number of patients')
+plt.show()
 
-# If you want to format the tick marks, use this:
-#date_form = DateFormatter("%m-%d")
-#ax.XAxis.set_major_formatter(date_form) # show only month and day for the date (exclude the year)
-#ax.XAxis.set_major_locator(mdates.WeekdayLocator(interval=1))  # Show label for eveyweek of data. See: https://www.earthdatascience.org/courses/use-data-open-source-python/use-time-series-data-in-python/date-time-types-in-pandas-python/customize-dates-matplotlib-plots-python/
+# You can see that both NSW and Victoria show very similar trends
+# I noticed that very few patients have recovered in NSW.
+# I think this is due to the lack of reporting rather than any particular biological reason
