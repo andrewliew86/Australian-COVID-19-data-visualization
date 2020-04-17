@@ -49,7 +49,7 @@ print('Number of days in our dataset: {}'. format(delta.days+1))
 # in our dataset (according to the df.info method)
 
 
-# Not much happens before 1 March in Australia so I am going to slice the data to be after the 26 Jan.
+# Not much happens before 1 March in Australia so I am going to slice the data to be after the 1 March.
 combined_dataset = combined_dataset.loc['2020-03-01':]
 
 fig, ax = plt.subplots(3, 1, sharex='all', figsize=(15, 8))
