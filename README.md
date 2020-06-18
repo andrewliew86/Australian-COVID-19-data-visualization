@@ -1,2 +1,2 @@
 # COVID-19-visualization
-Visualization of the confirmed cases, deaths and recovered COVID-19 cases. Data was taken from:  https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
+Visualization of COVID-19 related cases, deaths and recoveries. Data was taken from:  https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
