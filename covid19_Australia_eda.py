@@ -1,4 +1,4 @@
-# Exploratory data analysis of COCID-19 coronavirus deaths, cases and recoveries 15 Feb 2020
+# Exploratory data analysis of COVID-19 coronavirus deaths, cases and recoveries 15 Feb 2020
 # See here for data source: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
 
 import pandas as pd
