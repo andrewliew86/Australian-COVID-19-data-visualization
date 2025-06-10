@@ -32,7 +32,7 @@ combined_dataset.drop(columns=['Lat', 'Long', 'date'], inplace=True)  # remove u
 
 # Quick EDA to make sure everything is ok
 print(combined_dataset.columns)  # Are all the column names correct?
-print(combined_dataset.info())  # What are the data types of the columns?
+combined_dataset.info()  # What are the data types of the columns?
 print(combined_dataset.describe())  # Summary statistics for the different columns
 print(combined_dataset.isnull().sum())  # Are there any null values?
 
