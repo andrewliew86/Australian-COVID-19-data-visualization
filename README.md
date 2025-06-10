@@ -8,3 +8,11 @@ Raw .csv data can be downloaded from:  https://github.com/CSSEGISandData/COVID-1
 Python libraries/tools: Pandas, matplotlib
 
 ![alt tag](https://github.com/andrewliew86/COVID-19-visualization/blob/master/Figure_1.png)
+
+## Running tests
+
+To execute the unit tests, install dependencies and run `pytest` from the project root:
+
+```bash
+pytest
+```
